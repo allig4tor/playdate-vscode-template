@@ -1,8 +1,16 @@
 import "CoreLibs/graphics"
 
-local gfx <const> = playdate.graphics
+local pd <const> = playdate
+local gfx <const> = pd.graphics
 
-function playdate.update() 
+local playerX, playerY = 200,  120
+local playerRadius = 10
+local playerSpeed = 6
+
+function pd.update()
     gfx.clear()
-    gfx.drawText("Hello World", 20, 20)
+    local crankAngle = math.rad(pd.getCrankPosition())
+    playerX += math.sin(crankAngle) * playerSpeed
+    playerY -= math.cos(crankAngle) * playerSpeed
+    gfx.fillCircleAtPoint(playerX, playerY, playerRadius)
 end
